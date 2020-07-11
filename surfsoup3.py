@@ -1,11 +1,22 @@
 import time
 import magicseaweed
-import pandas as pd
+#import pandas as pd
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
+def unique(list1):
+    #initialize a null list
+    uniqueList = []
 
+    for x in list1:
+        if x not in uniqueList:
+            uniqueList.append(x)
+
+    print(uniqueList)
+    return(uniqueList)
+ 
+    
 GPIO.setup(17, GPIO.OUT)
 GPIO.setup(18, GPIO.OUT)
 GPIO.setup(22, GPIO.OUT)
@@ -24,7 +35,7 @@ clam_forecast = magicseaweed.MSW_Forecast(api_key, clam_id)
 clam_future = clam_forecast.get_future()
 print(clam_future.summary)
 
-data = pd.DataFrame([])
+data = pd.DataFrame() 
 
 for forecast in clam_future.data:
     forecastTime = time.ctime(forecast.d['localTimestamp'])
