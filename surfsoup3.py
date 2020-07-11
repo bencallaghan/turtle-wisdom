@@ -1,6 +1,17 @@
 import time
 import magicseaweed
 import pandas as pd
+import RPi.GPIO as GPIO
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+
+
+GPIO.setup(17, GPIO.OUT)
+GPIO.setup(18, GPIO.OUT)
+GPIO.setup(22, GPIO.OUT)
+GPIO.setup(23, GPIO.OUT)
+GPIO.setup(9, GPIO.OUT)
+GPIO.setup(25, GPIO.OUT)
 
 api_key = "54581012c82ad9250600ea521bf8dd24" 
 clam_id = 4709
@@ -38,22 +49,28 @@ for day in pd.unique(data['weekday']):
 print(bestrating)
 #print(bestrating
 
-gpios = [17,18,22,23,24]
+gpios = [17,18,22,23,9,25]
 
 for i in gpios:
-    gpio.setup(gpio[i], out)
+    print("GPIO", gpios[i], "ready and raring")
 
 if bestrating[1] > 0:
-    gpio[1].on()
+    GPIO.output(17,True)
+    GPIO.output(18,False)
     print("gpio 1 on")
 else:
-    print("gpio[2].on()")
+    GPIO.output(18,True)
+    GPIO.output(17,False)
 
-for i in 2:length(bestrating):
+next(bestrating)
+next(bestrating)
+for i in bestrating:
     if bestrating[i] >= 1:
         print("gpios[i+2] on")
+        GPIO.output(gpios[i+2],True)
     else:
         print("gpios[1+2] off")
-
+        GPIO.output(gpios[i+2],False)
 
     
+#GPIO.output(17,18,22,23,True
